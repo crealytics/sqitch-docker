@@ -1,4 +1,7 @@
 #!/bin/sh
 sqitch "$@"
-# $LOCALUID is an env variable set by docker run
-chown -R $LOCALUID:$LOCALUID /src
+
+# $LOCALUID, $LOCALGID are env variables set by docker run
+if [ -n "$LOCALUID" -a -n "$LOCALGID" ]; then
+  chown -R $LOCALUID:$LOCALGID /src
+fi
